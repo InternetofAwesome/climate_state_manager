@@ -1,0 +1,9 @@
+save_restore:
+  description: Save or restore the state of a climate device.
+  fields:
+    entity_id:
+      description: The entity_id of the climate device.
+      example: "climate.living_room"
+    operation:
+      description: The operation to perform, either "save" or "restore".
+      example: "save"

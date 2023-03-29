@@ -1,0 +1,10 @@
+{
+  "domain": "climate_state_manager",
+  "name": "Climate State Manager",
+  "config_flow": true,
+  "documentation": "https://github.com/InternetOfAwesome",
+  "version": "0.0.1",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@InternetOfAwesome"]
+}
