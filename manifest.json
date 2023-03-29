@@ -2,7 +2,7 @@
   "domain": "climate_state_manager",
   "name": "Climate State Manager",
   "config_flow": true,
-  "documentation": "https://github.com/InternetOfAwesome",
+  "documentation": "https://github.com/InternetofAwesome/climate_state_manager",
   "version": "0.0.1",
   "requirements": [],
   "dependencies": [],
