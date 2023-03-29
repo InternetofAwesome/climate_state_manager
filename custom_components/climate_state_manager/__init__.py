@@ -54,7 +54,7 @@ async def async_get_options(hass) -> List:
 
 async def async_save_restore_climate_state(service: ServiceCall):
     hass = service.hass
-    entity_ids = service.data.get("entity_id")
+    entity_ids = service.data["entity_id"]
     operation = service.data.get("operation")
 
     # Check if operation is 'save' or 'restore'
@@ -111,9 +111,8 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: config_entries.Co
         DOMAIN,
         "save_restore_climate_state",
         async_save_restore_climate_state,
-        schema=vol.Schema(
+        schema=cv.ENTITY_SERVICE_SCHEMA.extend(
             {
-                vol.Required("entity_id"): cv.entity_ids,
                 vol.Required("operation"): vol.In(["save", "restore"]),
             }
         ),
