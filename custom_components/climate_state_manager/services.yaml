@@ -1,9 +1,19 @@
-save_restore:
-  description: Save or restore the state of a climate device.
+save_restore_climate_state:
+  description: Save or restore the climate state for specified climate entities.
   fields:
     entity_id:
-      description: The entity_id of the climate device.
-      example: "climate.living_room"
+      description: A list of climate entity IDs to perform the save or restore operation on.
+      example: "climate.living_room, climate.bedroom"
+      required: true
+      selector:
+        entity:
+          domain: climate
     operation:
       description: The operation to perform, either "save" or "restore".
       example: "save"
+      required: true
+      selector:
+        select:
+          options:
+            - "save"
+            - "restore"
