@@ -6,8 +6,9 @@ save_restore_climate_state:
       example: "climate.living_room, climate.bedroom"
       required: true
       selector:
-        entity:
-          domain: climate
+        target:
+          entity:
+            domain: climate
     operation:
       description: The operation to perform, either "save" or "restore".
       example: "save"
