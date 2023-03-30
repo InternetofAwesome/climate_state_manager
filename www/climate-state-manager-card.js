@@ -47,7 +47,7 @@ class ClimateStateManagerCard extends HTMLElement {
       const entityIds = Array.from(entityCheckboxes).map(cb => cb.value);
       const operationSelect = this.content.querySelector('#operation');
       const operation = operationSelect.value;
-      await this.callService('climate_state_manager', 'save_restore_climate_state', { entity_id: entityIds, operation });
+      await this.callService('climate_state_manager', 'save_restore_climate_state', { target: { entity_id: entityIds }, operation });
     }
   
     async callService(domain, service, serviceData) {
