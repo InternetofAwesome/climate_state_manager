@@ -7,6 +7,8 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_ENTITY_ID
 from homeassistant.core import callback
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.config_validation import entity_domain, entity_id
+from homeassistant.helpers.entity_registry import async_entries_for_device
 import voluptuous as vol
 from .config_flow import ClimateStateManagerConfigFlow
 from homeassistant.config_entries import ConfigFlow
@@ -115,7 +117,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: config_entries.Co
         schema=vol.Schema(
             {
                 vol.Required("operation"): vol.In(["save", "restore"]),
-                vol.Required("target"): cv.ENTITY_SERVICE_SCHEMA,
+                vol.Required("target"): vol.All(cv.ensure_list, [entity_id]),
             }
         ),
     )
