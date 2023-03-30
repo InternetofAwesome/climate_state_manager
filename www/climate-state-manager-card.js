@@ -15,10 +15,15 @@ class ClimateStateManagerCard extends HTMLElement {
       const entities = await this.getClimateEntities();
       this.content.innerHTML = `
         <div>
-          <label for="entity">Entity:</label>
-          <select id="entity">
-            ${entities.map(e => `<option value="${e}">${e}</option>`).join('')}
-          </select>
+          <label for="entities">Entities:</label>
+          <div id="entity-list">
+            ${entities.map(e => `
+              <div>
+                <input type="checkbox" id="${e}" name="${e}" value="${e}">
+                <label for="${e}">${e}</label>
+              </div>
+            `).join('')}
+          </div>
         </div>
         <div>
           <label for="operation">Operation:</label>
@@ -38,11 +43,11 @@ class ClimateStateManagerCard extends HTMLElement {
     }
   
     async executeAction() {
-      const entitySelect = this.content.querySelector('#entity');
+      const entityCheckboxes = this.content.querySelectorAll('#entity-list input[type="checkbox"]:checked');
+      const entityIds = Array.from(entityCheckboxes).map(cb => cb.value);
       const operationSelect = this.content.querySelector('#operation');
-      const entityId = entitySelect.value;
       const operation = operationSelect.value;
-      await this.callService('climate_state_manager', 'save_restore_climate_state', { entity_id: entityId, operation });
+      await this.callService('climate_state_manager', 'save_restore_climate_state', { entity_id: entityIds, operation });
     }
   
     async callService(domain, service, serviceData) {
