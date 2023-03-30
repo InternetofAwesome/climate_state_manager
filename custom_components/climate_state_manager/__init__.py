@@ -115,11 +115,13 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: config_entries.Co
         "save_restore_climate_state",
         async_save_restore_climate_state,
         schema=vol.Schema(
-            {
-                vol.Required("operation"): vol.In(["save", "restore"]),
-                vol.Required("target"): vol.All(cv.ensure_list, [entity_id]),
-            }
-        ),
+        {
+            vol.Required("target"): vol.All(
+                cv.ensure_list, [{"entity_id": cv.entity_id}]
+            ),
+            vol.Required("operation"): vol.In(["save", "restore"]),
+        }
+        )
     )
 
 
