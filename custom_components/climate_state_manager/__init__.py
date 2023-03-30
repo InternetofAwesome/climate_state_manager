@@ -53,16 +53,17 @@ async def async_get_options(hass) -> List:
     return entities
 
 async def async_save_restore_climate_state(service: ServiceCall):
-    hass = service.hass
     operation = service.data.get("operation")
-    entity_ids = service.data.get("target")
+    target_entities = service.data.get("target")
+
+    if target_entities:
+        entity_ids = target_entities.get("entity_id")
+    else:
+        entity_ids = []
 
     # Check if operation is 'save' or 'restore'
     if operation not in ('save', 'restore'):
         return {"result": "error", "message": f"Invalid operation: {operation}. Allowed operations are 'save' or 'restore'."}
-
-    if not entity_ids or not operation:
-        return {"result": "error", "message": "entity_id and operation are required"}
 
     storage_key = "input_text.climate_states"
     storage_state = hass.states.get(storage_key)
@@ -114,12 +115,11 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: config_entries.Co
         schema=vol.Schema(
             {
                 vol.Required("operation"): vol.In(["save", "restore"]),
-                vol.Optional("entity_id"): cv.entity_ids,
-                vol.Optional("target"): vol.Schema({vol.Optional("entity_id"): cv.entity_ids}),
-            },
-            extra=vol.ALLOW_EXTRA,
+                vol.Required("target"): cv.target,
+            }
         ),
     )
+
 
     
     return True
