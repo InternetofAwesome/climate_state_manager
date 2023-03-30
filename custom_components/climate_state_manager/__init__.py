@@ -115,8 +115,9 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: config_entries.Co
         schema=vol.Schema(
             {
                 vol.Required("operation"): vol.In(["save", "restore"]),
+                vol.Required("target"): cv.ENTITY_SERVICE_SCHEMA,
             }
-        ).extend(cv.ENTITY_SERVICE_SCHEMA),
+        ),
     )
 
 
